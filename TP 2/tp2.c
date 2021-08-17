@@ -121,4 +121,47 @@ void mostrarEstruct(persona personas[], int validos){
 }
 
 
-void ordenarPila()
+void ordenarInsercion(persona personas[], int validos){
+    int pos = 0;
+    for (int i = 0; i < validos; i++)
+    {
+        pos = i;
+        int aux = personas[i].edad;
+        while (pos >0 && personas[pos-1].edad>aux)
+        {
+            personas[pos].edad=personas[pos-1].edad;
+            pos--;
+        }
+        personas[pos].edad=aux;
+    }
+    
+}
+
+
+void eliminarElemento(persona personas[], int validos){
+    int pos;
+    int flag=0;
+    char nombreAux[30];
+    printf("Ingrese el nombre del que vamos a borrar");
+    gets(nombreAux);
+    for (int i = 0; i < validos; i++)
+    {
+        if (strcmp(nombreAux,personas->nombre[i])==0)
+        {
+            flag=1;
+            pos=i;
+            break;
+        }
+        
+    }
+    if (flag==1)
+    {
+        for (int i = 0; i < validos; i++)
+        {
+            strcpy(personas[i].nombre,personas[i+1].nombre);
+        }
+        
+    }
+    
+    
+}
