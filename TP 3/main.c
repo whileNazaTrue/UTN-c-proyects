@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 
 int pedirFactorial();
@@ -11,8 +12,11 @@ double calculoPotencia(int base, int exponente);
 void cargarArreglo(int arreglo[], int validos);
 int recorrerArreglo(int arreglo[], int validos);
 int recorrerArregloDerecho(int arreglo[], int validos, int contador);
+int sumarElementosArreglo(int arregloUno[], int elementosArreglo);
+
 
 int main(){
+    /*
     int validos = 10;
     srand(time(NULL));
     int numeroFactorial = pedirFactorial();
@@ -32,8 +36,16 @@ int main(){
 
     cargarArreglo(arreglo, validos);
     recorrerArregloDerecho(arreglo,validos,0);
-    printf("=======");
+    printf("=======\n");
     recorrerArreglo(arreglo,validos);
+    */
+    int elementosArreglo = 6;
+
+    int arregloUno[6]= {1,2,3,3,2,1};//Este es capicua
+    int arregloDos[6]= {1,2,5,3,2,6}; //No es capicua
+    printf("El arreglo %s es capicua.", (arregloCapicua)?"":"no");
+    printf("%d es el resultado de la suma",sumarElementosArreglo(arregloUno,elementosArreglo));
+
     return 0;
 }
 
@@ -119,4 +131,36 @@ int recorrerArreglo(int arreglo[], int validos){
         printf("|%d|\n",arreglo[validos-1]);
         return recorrerArreglo(arreglo,validos-1);
     }
+}
+
+// Ver si un arreglo es capicua
+
+int arregloCapicua(int arregloUno[], int v, int n){
+    if (n==0)
+    {
+        return 1;
+    }else{
+        if (arregloUno[v-n] == arregloUno[n]){
+            return arregloCapicua(arregloUno,v,n);
+        }else{
+            return 0;
+        }
+
+        
+    }
+    
+
+}
+//int chequeoCapicua(int arregloUno[], int elementosArreglo){}
+
+// Sumar en forma recursiva los elementos de un arreglo de enteros y retornar el total de la suma
+
+int sumarElementosArreglo(int arregloUno[], int elementosArreglo){
+    if (elementosArreglo == 0)
+    {
+        return 0;
+    }else{
+        return sumarElementosArreglo(arregloUno,elementosArreglo-1)+arregloUno[elementosArreglo-1];
+    }
+    
 }
