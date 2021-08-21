@@ -11,9 +11,13 @@ int pedirExponentePotencia();
 double calculoPotencia(int base, int exponente);
 void cargarArreglo(int arreglo[], int validos);
 int recorrerArreglo(int arreglo[], int validos);
+int arregloCapicua(int arregloUno[], int v, int n);
 int recorrerArregloDerecho(int arreglo[], int validos, int contador);
 int sumarElementosArreglo(int arregloUno[], int elementosArreglo);
-
+int menorElemento(int arregloUno[],int elementosArreglo, int menor);
+void cargarArchivo(int arregloDos[]);
+void leerArchivo();
+int menorArchivoRecursivo(int registros, int menor);
 
 int main(){
     /*
@@ -41,10 +45,15 @@ int main(){
     */
     int elementosArreglo = 6;
 
-    int arregloUno[6]= {1,2,3,3,2,1};//Este es capicua
-    int arregloDos[6]= {1,2,5,3,2,6}; //No es capicua
-    printf("El arreglo %s es capicua.", (arregloCapicua)?"":"no");
-    printf("%d es el resultado de la suma",sumarElementosArreglo(arregloUno,elementosArreglo));
+    int arregloUno[7]= {3,36,9,33,38,172,11};//Este es capicua
+    int arregloDos[6]= {15,2,5,3,2,6}; //No es capicua
+    printf("El arreglo %s es capicua.\n", (arregloCapicua(arregloUno,elementosArreglo,elementosArreglo))?"":"no");
+    printf("%d es el resultado de la suma\n",sumarElementosArreglo(arregloUno,elementosArreglo));
+    printf("%d es el menor\n",menorElemento(arregloUno,elementosArreglo,arregloUno[0]));
+    cargarArchivo(arregloDos);
+    leerArchivo();
+    printf("=================\n");
+    printf("El menor del archivo es %d",menorArchivoRecursivo(0,0));
 
     return 0;
 }
@@ -163,4 +172,83 @@ int sumarElementosArreglo(int arregloUno[], int elementosArreglo){
         return sumarElementosArreglo(arregloUno,elementosArreglo-1)+arregloUno[elementosArreglo-1];
     }
     
+}
+
+//  Buscar el menor elemento de un arreglo en forma recursiva. 
+
+int menorElemento(int arregloUno[],int elementosArreglo, int menor){
+    if (elementosArreglo==-1)
+    {
+        return menor;
+    }
+    else{
+        if (arregloUno[elementosArreglo] < menor)
+        {
+            menor = arregloUno[elementosArreglo];
+        }
+        return menorElemento(arregloUno,elementosArreglo-1,menor);
+    }
+}
+
+void cargarArchivo(int arregloDos[]){
+    FILE * archi;
+    archi = fopen("archivo.dat","wb");
+    if (archi != NULL)
+    {
+        for (int i = 0; i < 7; i++)
+            {
+                fwrite(&arregloDos[i],sizeof(int),1,archi);
+            }
+    fclose(archi);
+    }
+    
+}
+
+void leerArchivo(){
+    int aux;
+    FILE * archi;
+    archi = fopen("archivo.dat","rb");
+    if (archi != NULL)
+    {
+        while (fread(&aux,sizeof(int),1,archi)> 0)
+            {
+                printf("*********\n");
+                printf("%d\n",aux);
+            }
+    fclose(archi);
+    }
+    
+}
+
+int menorArchivoRecursivo(int registros,int menor)
+{
+    if(registros == -1)
+    {
+        return menor;
+    }
+    else
+    {
+        int aux;//Genero un variable auxiliar para leer un archivo
+        FILE *archi = fopen("archivo.dat","rb");//Abro el archivo
+        fseek(archi,sizeof(int)*registros,SEEK_SET);//Cuando se iteraciona movemos el curso al elemto que queremos comparar
+        fread(&aux,sizeof(int),1,archi);
+        if(registros==0)//si el registro es cero menor no tiene ningun valor asiganado
+        {
+            menor=aux;
+        } 
+        else
+        {
+            if(aux < menor)//comparacion
+            {
+                menor=aux;
+            }
+        }
+        if(feof(archi))//Si llego al final del archivo
+        {
+            registros=-2;//para que? para cuando realice la iteriacion retorne menos -1 cuando termine de leer 
+            // el archivo y generar la condicion de corte
+        }
+        fclose(archi);
+        return menorArchivoRecursivo(registros+1,menor);//para comparar todos los registros del archivooo
+    }
 }
