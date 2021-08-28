@@ -44,7 +44,7 @@ void imprimirAlumno(Alumno alus[], Nota notas[], Materia mats[]);
 
 
 int main(){
-    /*
+    
     int i = 0;
     char genAux;
     persona personas[30];
@@ -63,7 +63,7 @@ int main(){
     inicpila(&pila2);
     
     //
-    */
+    
     Alumno alus[20]; // para almacenar los datos de los 20 alumnos. 
     Materia mats[5]; // para almacenar los códigos y nombres de las 5 materias. 
     Nota notas[100]; // para almacenar todas las notas de los alumnos. 
