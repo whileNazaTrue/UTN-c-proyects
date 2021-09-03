@@ -10,8 +10,8 @@ int main(){
 
 
     float areaCirculo = area(circulardo);
-    printf("El area es %f",areaCirculo);
+    printf("El area es %f\n",areaCirculo);
     float perimetroCirculo = perimetro(circulardo);
-    printf("El perimetro es %f",perimetroCirculo);
+    printf("El perimetro es %f\n",perimetroCirculo);
     return 0;
 }
