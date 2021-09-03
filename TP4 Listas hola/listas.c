@@ -99,5 +99,69 @@ void leerLista(nodo * lista){
         lista = lista->sig;
     }
     
+}
+
+
+void eliminarNodoCabeza(nodo ** lista, int dato){
+    nodo * aux;
+    nodo * act;
+    nodo * ant;
+    while (lista != NULL)
+    {
+        if ((*lista)->dato == dato) //Esta en cabezera
+        {
+            aux = *lista;
+            *lista = (*lista)->sig;
+            free(aux);
+        }
+        else{
+            ant = *lista;
+            act = (*lista)->sig;
+            while (act != NULL && act->dato != dato)
+            {
+                ant = act;
+                act = act->sig;
+            }
+            if (act != NULL)
+            {
+                ant->sig = act->sig;
+                free(act);
+            }
+            
+        }
+        
+    }
+    
+}
+
+
+void eliminarNodoOrdenada(nodo ** lista, int dato){
+    nodo * aux;
+    nodo * act;
+    nodo * ant;
+    if (*lista != NULL && (*lista)->dato <= dato)
+    {
+        if ((*lista)->dato == dato)
+        {
+            aux = *lista;
+            *lista = (*lista)->sig;
+            free(aux);
+        }
+        else{
+            ant = *lista;
+            act = (*lista)->sig;
+            while (act != NULL && act->dato < dato)
+            {
+                ant = act;
+                act = act->sig;
+            }
+            if (act != NULL && act->dato == dato)
+            {
+                ant->sig = act->sig;
+                free(act);
+            }
+            
+        }
+    }
     
 }
